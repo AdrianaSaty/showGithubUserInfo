@@ -25,6 +25,14 @@ export class GithubService {
       )
   }
 
+  getUserRepos(user: string): Observable<GithubUserInfo[]> {
+    return this.httpClient.get<GithubUserInfo[]>(`${this.url}/users/${user}/repos`)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      )
+  }
+
   handleError(error: HttpErrorResponse) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
