@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { GithubService } from 'src/app/services/github.service';
 import { GithubUserInfo } from 'src/app/models/githubUserInfo';
 import { GithubUserRepos } from 'src/app/models/githubUserRepos';
+import { convertDateToLocaleString } from 'src/helpers';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -11,9 +12,11 @@ import { GithubUserRepos } from 'src/app/models/githubUserRepos';
 })
 export class HomeComponent implements OnInit {
 
-  user = {} as GithubUserInfo;
+  userInfo = {} as GithubUserInfo;
   repos: GithubUserRepos[] = []
   reposStarred: GithubUserRepos[] = []
+  githubUser: string = '';
+  convertDateToLocaleString = convertDateToLocaleString;
 
   constructor(
     public router: Router,
@@ -21,17 +24,29 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const githubUserRouter: string = this.router.url.slice(1);
+    this.githubUser = this.router.url.slice(1);
+    if(this.githubUser) { 
+      this.userInfo.name = this.githubUser
+      this.getUserInfo(this.githubUser)
+    } 
+    
   }
 
   onSubmit(f: NgForm) {
-    console.log(f.form.value.githubUserForm)
+    this.githubUser = f.form.value.githubUserForm;
+    this.router.navigate([`${this.githubUser}`])
+    this.getUserInfo(this.githubUser)
+    // console.log(f.form.value.githubUserForm)
   }
 
-  public getUserInfo() {
-    this.githubService.getUserInfo('AdrianaSaty').subscribe((user: any) => {
-      this.user = user;
-    });
+  
+  public getUserInfo(user: string) {
+    if(user) {
+      this.githubService.getUserInfo(user).subscribe((user: any) => {
+        this.userInfo = user;
+
+      });
+    }
   }
 
   public getUserRepos() {
