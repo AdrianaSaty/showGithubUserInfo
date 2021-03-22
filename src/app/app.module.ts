@@ -9,11 +9,13 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { GithubSvgComponent } from 'src/assets/svg/github/github.component';
+import { HeaderComponent } from './componentes/header/header.component';
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    GithubSvgComponent
+    GithubSvgComponent,
+    HeaderComponent
   ],
   imports: [
     AppRoutingModule,
