@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
-import { User } from '../models/user';
+import { GithubUserInfo } from '../models/githubUserInfo';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +17,8 @@ export class GithubService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
 
-  getUserInfo(user: string): Observable<User[]> {
-    return this.httpClient.get<User[]>(`${this.url}/users/${user}`)
+  getUserInfo(user: string): Observable<GithubUserInfo[]> {
+    return this.httpClient.get<GithubUserInfo[]>(`${this.url}/users/${user}`)
       .pipe(
         retry(2),
         catchError(this.handleError)

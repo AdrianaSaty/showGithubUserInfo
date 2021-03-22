@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'; //import router
 import { NgForm } from '@angular/forms';
 import { GithubService } from 'src/app/services/github.service';
-import { User } from 'src/app/models/user';
+import { GithubUserInfo } from 'src/app/models/githubUserInfo';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -10,7 +10,7 @@ import { User } from 'src/app/models/user';
 })
 export class HomeComponent implements OnInit {
 
-  user = {} as User;
+  user = {} as GithubUserInfo;
 
   constructor(
     public router: Router,
