@@ -33,6 +33,14 @@ export class GithubService {
       )
   }
 
+  getReposStarred(user: string): Observable<GithubUserInfo[]> {
+    return this.httpClient.get<GithubUserInfo[]>(`${this.url}/users/${user}/starred`)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      )
+  }
+
   handleError(error: HttpErrorResponse) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {

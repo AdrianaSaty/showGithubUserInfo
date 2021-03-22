@@ -12,8 +12,8 @@ import { GithubUserRepos } from 'src/app/models/githubUserRepos';
 export class HomeComponent implements OnInit {
 
   user = {} as GithubUserInfo;
-  repo = {} as GithubUserRepos;
   repos: GithubUserRepos[] = []
+  reposStarred: GithubUserRepos[] = []
 
   constructor(
     public router: Router,
@@ -37,7 +37,12 @@ export class HomeComponent implements OnInit {
   public getUserRepos() {
     this.githubService.getUserRepos('AdrianaSaty').subscribe((repos: any) => {
       this.repos = repos;
-      console.log(this.repos[0].name)
+    });
+  }
+  
+  public getUserReposStarred() {
+    this.githubService.getReposStarred('AdrianaSaty').subscribe((repos: any) => {
+      this.reposStarred = repos;
     });
   }
 }
