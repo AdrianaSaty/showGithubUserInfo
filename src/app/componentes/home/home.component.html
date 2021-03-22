@@ -1,1 +1,9 @@
 <p>home works!</p>
+
+<form #f="ngForm" novalidate (ngSubmit)="onSubmit(f)">
+    <mat-form-field appearance="legacy">
+        <mat-label>Search github profile</mat-label>
+        <input matInput name="githubUserForm" ngModel #githubUserForm="ngModel" placeholder="digite seu usuário git">
+        <mat-icon (click)="onSubmit(f)" matSuffix>search</mat-icon>
+    </mat-form-field>
+</form>
