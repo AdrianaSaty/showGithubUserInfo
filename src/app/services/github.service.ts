@@ -7,7 +7,7 @@ import { User } from '../models/user';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class GithubService {
 
   url = 'https://api.github.com'; // api rest fake
 

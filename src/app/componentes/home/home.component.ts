@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'; //import router
 import { NgForm } from '@angular/forms';
-import { UserService } from 'src/app/services/user.service';
+import { GithubService } from 'src/app/services/github.service';
 import { User } from 'src/app/models/user';
 @Component({
   selector: 'app-home',
@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     public router: Router,
-    private userService: UserService
+    private githubService: GithubService
   ) { }
 
   ngOnInit(): void {
@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
   }
 
   public getUserInfo() {
-    this.userService.getUserInfo('AdrianaSaty').subscribe((user: any) => {
+    this.githubService.getUserInfo('AdrianaSaty').subscribe((user: any) => {
       this.user = user;
     });
   }
