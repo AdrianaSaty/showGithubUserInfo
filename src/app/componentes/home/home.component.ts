@@ -17,6 +17,8 @@ export class HomeComponent implements OnInit {
   reposStarred: GithubUserRepos[] = []
   githubUser: string = '';
   convertDateToLocaleString = convertDateToLocaleString;
+  showUserRepos: boolean = false;
+  showUserReposButtonText: string = 'Show User Repos';
 
   constructor(
     public router: Router,
@@ -51,6 +53,8 @@ export class HomeComponent implements OnInit {
   public getUserRepos() {
     this.githubService.getUserRepos(this.userInfo.login).subscribe((repos: any) => {
       this.repos = repos;
+      this.showUserRepos = !this.showUserRepos;
+      this.showUserRepos ? this.showUserReposButtonText = 'Hide User Repos' : this.showUserReposButtonText = 'Show User Repos';
     });
   }
   

@@ -10,20 +10,33 @@
             </mat-form-field>
         </form>
         <div *ngIf="userInfo.name">
-            <img src={{userInfo.avatar_url}}>
-            <p class="info-title"><span>Github User Infos: </span></p>
-            <p class="info"><span>Name: </span>{{userInfo.name}}</p>
-            <p class="info"><span>Company: </span>{{userInfo.company}}</p>
-            <p class="info" *ngIf="userInfo.location"><span>Location: </span>{{userInfo.location}}</p>
-            <p class="info" *ngIf="userInfo.blog"><span>Blog: </span><a href={{userInfo.blog}} target="_blank">{{userInfo.blog}}</a></p>
-            <p class="info" *ngIf="userInfo.bio"><span>Bio: </span>{{userInfo.bio}}</p>
-            <p class="info"><span>Followers: </span>{{userInfo.followers}}</p>
-            <p class="info"><span>Following: </span>{{userInfo.following}}</p>
-            <p class="info"><span>Last update: </span>{{convertDateToLocaleString(userInfo.updated_at)}}</p>
+            <mat-card>
+                <img src={{userInfo.avatar_url}}>
+                <p class="info-title"><span>Github User Infos: </span></p>
+                <p class="info"><span>Name: </span>{{userInfo.name}}</p>
+                <p class="info"><span>Company: </span>{{userInfo.company}}</p>
+                <p class="info" *ngIf="userInfo.location"><span>Location: </span>{{userInfo.location}}</p>
+                <p class="info" *ngIf="userInfo.blog"><span>Blog: </span><a href={{userInfo.blog}}
+                        target="_blank">{{userInfo.blog}}</a></p>
+                <p class="info" *ngIf="userInfo.bio"><span>Bio: </span>{{userInfo.bio}}</p>
+                <p class="info"><span>Followers: </span>{{userInfo.followers}}</p>
+                <p class="info"><span>Following: </span>{{userInfo.following}}</p>
+                <p class="info"><span>Last update: </span>{{convertDateToLocaleString(userInfo.updated_at)}}</p>
+            </mat-card>
         </div>
         <div class="container-buttons">
-            <button (click)="getUserRepos()" mat-raised-button color="primary">Show User Repos</button>
+            <button (click)="getUserRepos()" mat-raised-button color="primary">{{showUserReposButtonText}}</button>
             <button (click)="getUserReposStarred()" mat-raised-button color="primary">Show Starred Repos</button>
+        </div>
+        <div *ngIf="showUserRepos">
+            <p class="info-title"><span>Github User Repos: </span></p>
+            <div *ngFor="let repo of repos">
+                <mat-card>
+                    <p class="info"><span>Name: </span>{{repo.name}}</p>
+                    <p class="info"><span>Description: </span>{{repo.description}}</p>
+                    <p class="info"><span>Language: </span>{{repo.language}}</p>
+                </mat-card>
+            </div>
         </div>
     </div>
 </div>

@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { GithubSvgComponent } from 'src/assets/svg/github/github.component';
 import { HeaderComponent } from './componentes/header/header.component';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +26,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatIconModule, 
     MatInputModule,
     HttpClientModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
