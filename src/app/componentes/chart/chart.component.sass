@@ -1,0 +1,63 @@
+@import '../../../style/styles'
+
+.chart 
+    margin-top: 15px
+
+.progress-chart 
+    display: flex
+    height: 8px
+    overflow: hidden
+    background-color: grey
+    border-radius: 6px
+    outline: 1px solid transparent
+
+.progress-chart-item 
+    outline: 2px solid transparent
+
+.progress-chart 
+    span:nth-child(1) 
+        background-color: $primary_color
+    span:nth-child(2) 
+        background-color: $secondary_color
+    span:nth-child(3) 
+        background-color: $grey_color
+
+.description-chart
+    display: inline-flex!important
+    align-items: center!important
+    flex-wrap: nowrap!important
+    text-decoration: none!important
+    font-size: 12px!important
+    margin-right: 16px!important
+    color: $grey_color
+
+ul
+    list-style: none!important
+    li:nth-child(1)
+        svg
+            color: $primary_color
+    li:nth-child(2)
+        svg
+            color: $secondary_color
+    li:nth-child(3)
+        svg
+            color: $grey_color
+li
+    display: inline
+
+ol, ul 
+    padding-left: 0
+    margin-top: 0
+    margin-bottom: 0
+
+.description-chart-language
+    margin-right: 4px
+    font-weight: 600!important
+svg:not(:root) 
+    overflow: hidden
+
+.description-chart-label 
+    vertical-align: text-bottom
+    display: inline-block
+    vertical-align: text-top
+    fill: currentColor

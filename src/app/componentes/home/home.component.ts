@@ -23,6 +23,12 @@ export class HomeComponent implements OnInit {
   userReposStarredText: string = 'Show Starred Repos';
   calledGetUserRepos: boolean = false;
   calledGetUserReposStarred: boolean = false;
+  language1: string = 'Typescript';
+  language2: string = 'CSS';
+  language3: string = 'HTML';
+  percentage1: string = '70%';
+  percentage2: string = '20%';
+  percentage3: string = '10%';
 
   constructor(
     public router: Router,

@@ -12,12 +12,14 @@ import { GithubSvgComponent } from 'src/assets/svg/github/github.component';
 import { HeaderComponent } from './componentes/header/header.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { ChartComponent } from './componentes/chart/chart.component';
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     GithubSvgComponent,
-    HeaderComponent
+    HeaderComponent,
+    ChartComponent
   ],
   imports: [
     AppRoutingModule,
@@ -27,7 +29,7 @@ import { MatCardModule } from '@angular/material/card';
     MatInputModule,
     HttpClientModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

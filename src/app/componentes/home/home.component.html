@@ -43,6 +43,14 @@
                                 <p class="info"><span>Name: </span>{{repo.name}}</p>
                                 <p class="info"><span>Description: </span>{{repo.description}}</p>
                                 <p class="info"><span>Language: </span>{{repo.language}}</p>
+                                <app-chart 
+                                    [language1]="language1"
+                                    [language2]="language2"
+                                    [language3]="language3"
+                                    [percentage1]="percentage1"
+                                    [percentage2]="percentage2"
+                                    [percentage3]="percentage3"
+                                    ></app-chart>
                             </mat-card>
                         </div>
                     </div>
