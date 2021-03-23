@@ -44,19 +44,18 @@ export class HomeComponent implements OnInit {
     if(user) {
       this.githubService.getUserInfo(user).subscribe((user: any) => {
         this.userInfo = user;
-
       });
     }
   }
 
   public getUserRepos() {
-    this.githubService.getUserRepos('AdrianaSaty').subscribe((repos: any) => {
+    this.githubService.getUserRepos(this.userInfo.login).subscribe((repos: any) => {
       this.repos = repos;
     });
   }
   
   public getUserReposStarred() {
-    this.githubService.getReposStarred('AdrianaSaty').subscribe((repos: any) => {
+    this.githubService.getReposStarred(this.userInfo.login).subscribe((repos: any) => {
       this.reposStarred = repos;
     });
   }

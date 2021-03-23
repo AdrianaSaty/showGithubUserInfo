@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { GithubSvgComponent } from 'src/assets/svg/github/github.component';
 import { HeaderComponent } from './componentes/header/header.component';
+import { MatButtonModule } from '@angular/material/button';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,6 +25,7 @@ import { HeaderComponent } from './componentes/header/header.component';
     MatIconModule, 
     MatInputModule,
     HttpClientModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

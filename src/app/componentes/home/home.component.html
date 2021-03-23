@@ -21,5 +21,9 @@
             <p class="info"><span>Following: </span>{{userInfo.following}}</p>
             <p class="info"><span>Last update: </span>{{convertDateToLocaleString(userInfo.updated_at)}}</p>
         </div>
+        <div class="container-buttons">
+            <button (click)="getUserRepos()" mat-raised-button color="primary">Show User Repos</button>
+            <button (click)="getUserReposStarred()" mat-raised-button color="primary">Show Starred Repos</button>
+        </div>
     </div>
 </div>
