@@ -21,6 +21,8 @@ export class HomeComponent implements OnInit {
   userReposButtonText: string = 'Show User Repos';
   showUserReposStarred: boolean = false;
   userReposStarredText: string = 'Show Starred Repos';
+  calledGetUserRepos: boolean = false;
+  calledGetUserReposStarred: boolean = false;
 
   constructor(
     public router: Router,
@@ -54,19 +56,25 @@ export class HomeComponent implements OnInit {
   }
 
   public getUserRepos() {
-    this.githubService.getUserRepos(this.userInfo.login).subscribe((repos: any) => {
-      this.repos = repos;
-      this.showUserRepos = !this.showUserRepos;
-      this.toggleButtonText();
-    });
+    if(!this.calledGetUserRepos) {
+      this.githubService.getUserRepos(this.userInfo.login).subscribe((repos: any) => {
+        this.repos = repos;
+      });
+    }
+    this.calledGetUserRepos = true;
+    this.showUserRepos = !this.showUserRepos;
+    this.toggleButtonText();
   }
   
   public getUserReposStarred() {
-    this.githubService.getReposStarred(this.userInfo.login).subscribe((repos: any) => {
-      this.reposStarred = repos;
-      this.showUserReposStarred = !this.showUserReposStarred;
-      this.toggleButtonText();
-    });
+    if(!this.calledGetUserReposStarred) {
+      this.githubService.getReposStarred(this.userInfo.login).subscribe((repos: any) => {
+        this.reposStarred = repos;
+      });
+    }
+    this.calledGetUserReposStarred = true;
+    this.showUserReposStarred = !this.showUserReposStarred;
+    this.toggleButtonText();
   }
 
   public toggleButtonText() {
@@ -77,6 +85,8 @@ export class HomeComponent implements OnInit {
   public cleanReposInfo() {
     this.showUserRepos = false;
     this.showUserReposStarred = false;
+    this.calledGetUserRepos = false;
+    this.calledGetUserReposStarred = false;
     this.toggleButtonText();
   }
 }
