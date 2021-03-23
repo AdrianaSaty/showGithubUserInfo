@@ -1,11 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.sass']
 })
-export class ChartComponent implements OnInit {
+export class ChartComponent  {
 
   @Input() language1: string = '';
   @Input() language2: string = '';
@@ -14,8 +14,4 @@ export class ChartComponent implements OnInit {
   @Input() percentage2: string = '';
   @Input() percentage3: string = '';
   
-  ngOnInit(): void {
-  }
-  
 }
-

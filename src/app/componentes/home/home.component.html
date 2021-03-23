@@ -8,7 +8,7 @@
                 <mat-icon (click)="onSubmit(f)" matSuffix>search</mat-icon>
             </mat-form-field>
         </form>
-        <div *ngIf="userInfo.name">
+        <div *ngIf="userInfo.login">
             <mat-card class="user-info-card">
                 <img src={{userInfo.avatar_url}}>
                 <div>
@@ -28,29 +28,32 @@
             </mat-card>
         </div>
         <div class="container-buttons">
-            <button (click)="getUserRepos()" disabled={{!userInfo.name}} mat-raised-button
+            <button (click)="getUserRepos()" disabled={{!userInfo.login}} mat-raised-button
                 color="primary">{{userReposButtonText}}</button>
-            <button (click)="getUserReposStarred()" disabled={{!userInfo.name}} mat-raised-button
+            <button (click)="getUserReposStarred()" disabled={{!userInfo.login}} mat-raised-button
                 color="primary">{{userReposStarredText}}</button>
         </div>
         <div class="container-repos">
             <div>
                 <div *ngIf="showUserRepos">
-                    <div *ngIf="repos[0].name !== 'undefined.github.io'; else elseBlock">
+                    <div *ngIf="repos.length !== 0; else elseBlock">
                         <p class="info-title"><span>Github User Repos: </span></p>
-                        <div *ngFor="let repo of repos">
+                        <div *ngFor="let repo of repos, let i = index">
                             <mat-card>
                                 <p class="info"><span>Name: </span>{{repo.name}}</p>
-                                <p class="info"><span>Description: </span>{{repo.description}}</p>
-                                <p class="info"><span>Language: </span>{{repo.language}}</p>
-                                <app-chart 
-                                    [language1]="language1"
-                                    [language2]="language2"
-                                    [language3]="language3"
-                                    [percentage1]="percentage1"
-                                    [percentage2]="percentage2"
-                                    [percentage3]="percentage3"
-                                    ></app-chart>
+                                <p class="info" *ngIf="repo.description"><span>Description: </span>{{repo.description}}</p>
+                                <p class="info" *ngIf="repo.language"><span>Language: </span>{{repo.language}}</p>
+                                <p class="info"><span>Created at: </span>{{convertDateToLocaleString(repo.created_at)}}</p>
+                                <p class="info"><span>Pushed at: </span>{{convertDateToLocaleString(repo.pushed_at)}}</p>
+                                <br>
+                                <app-chart *ngIf="showChartData[i]"
+                                    [language1]="chartData[i].language1"
+                                    [language2]="chartData[i].language2"
+                                    [language3]="chartData[i].language3"
+                                    [percentage1]="chartData[i].percentage1"
+                                    [percentage2]="chartData[i].percentage2"
+                                    [percentage3]="chartData[i].percentage3">
+                                </app-chart>
                             </mat-card>
                         </div>
                     </div>
