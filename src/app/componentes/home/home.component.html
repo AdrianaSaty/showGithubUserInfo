@@ -25,18 +25,42 @@
             </mat-card>
         </div>
         <div class="container-buttons">
-            <button (click)="getUserRepos()" mat-raised-button color="primary">{{showUserReposButtonText}}</button>
-            <button (click)="getUserReposStarred()" mat-raised-button color="primary">Show Starred Repos</button>
+            <button (click)="getUserRepos()" mat-raised-button color="primary">{{userReposButtonText}}</button>
+            <button (click)="getUserReposStarred()" mat-raised-button
+                color="primary">{{userReposStarredText}}</button>
         </div>
         <div *ngIf="showUserRepos">
-            <p class="info-title"><span>Github User Repos: </span></p>
-            <div *ngFor="let repo of repos">
-                <mat-card>
-                    <p class="info"><span>Name: </span>{{repo.name}}</p>
-                    <p class="info"><span>Description: </span>{{repo.description}}</p>
-                    <p class="info"><span>Language: </span>{{repo.language}}</p>
-                </mat-card>
+            <div *ngIf="repos.length !== 0; else elseBlock">
+                <p class="info-title"><span>Github User Repos: </span></p>
+                <div *ngFor="let repo of repos">
+                    <mat-card>
+                        <p class="info"><span>Name: </span>{{repo.name}}</p>
+                        <p class="info"><span>Description: </span>{{repo.description}}</p>
+                        <p class="info"><span>Language: </span>{{repo.language}}</p>
+                    </mat-card>
+                </div>
             </div>
+            <ng-template #elseBlock>
+                <p class="info-title"><span>User don't have any repo 🙁</span></p>
+            </ng-template>
+        </div>
+
+        <div *ngIf="showUserReposStarred">
+            <div *ngIf="reposStarred.length !== 0; else elseBlock">
+                <p class="info-title"><span>Github Starred ⭐</span></p>
+                <div *ngFor="let repoStarred of reposStarred">
+                    <mat-card>
+                        <p class="info"><span>Name: </span>{{repoStarred.name}}</p>
+                        <p class="info"><span>Description: </span>{{repoStarred.description}}</p>
+                        <p class="info"><span>Language: </span>{{repoStarred.language}}</p>
+                        <p class="info"><span>Pushed At: </span>{{convertDateToLocaleString(repoStarred.pushed_at)}}</p>
+                        <p class="info"><span>Updated At: </span>{{convertDateToLocaleString(repoStarred.updated_at)}}</p>
+                    </mat-card>
+                </div>
+            </div>
+            <ng-template #elseBlock>
+                <p class="info-title"><span>User don't have any repo Starred 🙁</span></p>
+            </ng-template>
         </div>
     </div>
 </div>

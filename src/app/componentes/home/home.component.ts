@@ -18,7 +18,9 @@ export class HomeComponent implements OnInit {
   githubUser: string = '';
   convertDateToLocaleString = convertDateToLocaleString;
   showUserRepos: boolean = false;
-  showUserReposButtonText: string = 'Show User Repos';
+  userReposButtonText: string = 'Show User Repos';
+  showUserReposStarred: boolean = false;
+  userReposStarredText: string = 'Show Starred Repos';
 
   constructor(
     public router: Router,
@@ -36,6 +38,7 @@ export class HomeComponent implements OnInit {
 
   onSubmit(f: NgForm) {
     this.githubUser = f.form.value.githubUserForm;
+    this.cleanReposInfo();
     this.router.navigate([`${this.githubUser}`])
     this.getUserInfo(this.githubUser)
     // console.log(f.form.value.githubUserForm)
@@ -54,13 +57,26 @@ export class HomeComponent implements OnInit {
     this.githubService.getUserRepos(this.userInfo.login).subscribe((repos: any) => {
       this.repos = repos;
       this.showUserRepos = !this.showUserRepos;
-      this.showUserRepos ? this.showUserReposButtonText = 'Hide User Repos' : this.showUserReposButtonText = 'Show User Repos';
+      this.toggleButtonText();
     });
   }
   
   public getUserReposStarred() {
     this.githubService.getReposStarred(this.userInfo.login).subscribe((repos: any) => {
       this.reposStarred = repos;
+      this.showUserReposStarred = !this.showUserReposStarred;
+      this.toggleButtonText();
     });
+  }
+
+  public toggleButtonText() {
+    this.showUserRepos ? this.userReposButtonText = 'Hide User Repos' : this.userReposButtonText = 'Show User Repos';
+    this.showUserReposStarred ? this.userReposStarredText = 'Hide Starred Repos' : this.userReposStarredText = 'Show Starred Repos';
+  }
+
+  public cleanReposInfo() {
+    this.showUserRepos = false;
+    this.showUserReposStarred = false;
+    this.toggleButtonText();
   }
 }
