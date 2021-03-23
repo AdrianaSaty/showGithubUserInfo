@@ -5,62 +5,76 @@
             <mat-form-field appearance="legacy">
                 <mat-label>Search github profile</mat-label>
                 <input matInput name="githubUserForm" ngModel #githubUserForm="ngModel"
-                    placeholder="digite seu usuário git">
+                    placeholder="">
                 <mat-icon (click)="onSubmit(f)" matSuffix>search</mat-icon>
             </mat-form-field>
         </form>
         <div *ngIf="userInfo.name">
-            <mat-card>
+            <mat-card class="user-info-card">
                 <img src={{userInfo.avatar_url}}>
-                <p class="info-title"><span>Github User Infos: </span></p>
-                <p class="info"><span>Name: </span>{{userInfo.name}}</p>
-                <p class="info"><span>Company: </span>{{userInfo.company}}</p>
-                <p class="info" *ngIf="userInfo.location"><span>Location: </span>{{userInfo.location}}</p>
-                <p class="info" *ngIf="userInfo.blog"><span>Blog: </span><a href={{userInfo.blog}}
-                        target="_blank">{{userInfo.blog}}</a></p>
-                <p class="info" *ngIf="userInfo.bio"><span>Bio: </span>{{userInfo.bio}}</p>
-                <p class="info"><span>Followers: </span>{{userInfo.followers}}</p>
-                <p class="info"><span>Following: </span>{{userInfo.following}}</p>
-                <p class="info"><span>Last update: </span>{{convertDateToLocaleString(userInfo.updated_at)}}</p>
+                <div>
+                    <p class="info-title"><span>Github User Infos: </span></p>
+                    <p class="info"><span>Name: </span>{{userInfo.name}}</p>
+                    <p class="info"><span>Company: </span>{{userInfo.company}}</p>
+                    <p class="info" *ngIf="userInfo.location"><span>Location: </span>{{userInfo.location}}</p>
+                    <p class="info" *ngIf="userInfo.blog">
+                        <span>Blog: </span>
+                        <a href={{userInfo.blog}} target="_blank">{{userInfo.blog}}</a>
+                    </p>
+                    <p class="info" *ngIf="userInfo.bio"><span>Bio: </span>{{userInfo.bio}}</p>
+                    <p class="info"><span>Followers: </span>{{userInfo.followers}}</p>
+                    <p class="info"><span>Following: </span>{{userInfo.following}}</p>
+                    <p class="info"><span>Last update: </span>{{convertDateToLocaleString(userInfo.updated_at)}}</p>
+                </div>
             </mat-card>
         </div>
         <div class="container-buttons">
-            <button (click)="getUserRepos()" mat-raised-button color="primary">{{userReposButtonText}}</button>
-            <button (click)="getUserReposStarred()" mat-raised-button
-                color="primary">{{userReposStarredText}}</button>
+            <button (click)="getUserRepos()" disabled={{!userInfo.name}} mat-raised-button color="primary">{{userReposButtonText}}</button>
+            <button (click)="getUserReposStarred()" disabled={{!userInfo.name}} mat-raised-button color="primary">{{userReposStarredText}}</button>
         </div>
-        <div *ngIf="showUserRepos">
-            <div *ngIf="repos.length !== 0; else elseBlock">
-                <p class="info-title"><span>Github User Repos: </span></p>
-                <div *ngFor="let repo of repos">
-                    <mat-card>
-                        <p class="info"><span>Name: </span>{{repo.name}}</p>
-                        <p class="info"><span>Description: </span>{{repo.description}}</p>
-                        <p class="info"><span>Language: </span>{{repo.language}}</p>
-                    </mat-card>
+        <div class="container-repos">
+            <div>
+                <div *ngIf="showUserRepos">
+                    <div *ngIf="repos[0].name !== 'undefined.github.io'; else elseBlock">
+                        <p class="info-title"><span>Github User Repos: </span></p>
+                        <div *ngFor="let repo of repos">
+                            <mat-card>
+                                <p class="info"><span>Name: </span>{{repo.name}}</p>
+                                <p class="info"><span>Description: </span>{{repo.description}}</p>
+                                <p class="info"><span>Language: </span>{{repo.language}}</p>
+                            </mat-card>
+                        </div>
+                    </div>
+                    <ng-template #elseBlock>
+                        <p class="info-title"><span>User don't have any repo 🙁</span></p>
+                    </ng-template>
                 </div>
             </div>
-            <ng-template #elseBlock>
-                <p class="info-title"><span>User don't have any repo 🙁</span></p>
-            </ng-template>
+
+            <div>
+                <div *ngIf="showUserReposStarred">
+                    <div *ngIf="reposStarred.length !== 0; else elseBlock">
+                        <p class="info-title"><span>Github Starred ⭐</span></p>
+                        <div *ngFor="let repoStarred of reposStarred">
+                            <mat-card>
+                                <p class="info"><span>Name: </span>{{repoStarred.name}}</p>
+                                <p class="info"><span>Description: </span>{{repoStarred.description}}</p>
+                                <p class="info"><span>Language: </span>{{repoStarred.language}}</p>
+                                <p class="info"><span>Pushed At:
+                                    </span>{{convertDateToLocaleString(repoStarred.pushed_at)}}</p>
+                                <p class="info"><span>Updated At:
+                                    </span>{{convertDateToLocaleString(repoStarred.updated_at)}}
+                                </p>
+                            </mat-card>
+                        </div>
+                    </div>
+                    <ng-template #elseBlock>
+                        <p class="info-title"><span>User don't have any repo Starred 🙁</span></p>
+                    </ng-template>
+                </div>
+            </div>
+
         </div>
 
-        <div *ngIf="showUserReposStarred">
-            <div *ngIf="reposStarred.length !== 0; else elseBlock">
-                <p class="info-title"><span>Github Starred ⭐</span></p>
-                <div *ngFor="let repoStarred of reposStarred">
-                    <mat-card>
-                        <p class="info"><span>Name: </span>{{repoStarred.name}}</p>
-                        <p class="info"><span>Description: </span>{{repoStarred.description}}</p>
-                        <p class="info"><span>Language: </span>{{repoStarred.language}}</p>
-                        <p class="info"><span>Pushed At: </span>{{convertDateToLocaleString(repoStarred.pushed_at)}}</p>
-                        <p class="info"><span>Updated At: </span>{{convertDateToLocaleString(repoStarred.updated_at)}}</p>
-                    </mat-card>
-                </div>
-            </div>
-            <ng-template #elseBlock>
-                <p class="info-title"><span>User don't have any repo Starred 🙁</span></p>
-            </ng-template>
-        </div>
     </div>
 </div>

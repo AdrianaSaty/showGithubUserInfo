@@ -4,34 +4,55 @@
     padding: 0px 30px
 
 .mat-form-field 
-  width: 100%
+    width: 100%
+    font-size: 1.2em
+    @media (min-width: $tablet_size)
+        width: 47.5%
+        font-size: 1.5em
+
+
+.user-info-card
+    @media (min-width: $tablet_size)
+        display: flex
+        justify-content: space-around
+        div
+            width: 45%
 
 img
     width: 100%
     margin: 5px 0 10px 0
+    @media (min-width: $tablet_size)
+        width: 45%
 
 .info-title
-    font-size: 22px
+    font-size: 1.6em
     font-weight: bold
     color: $primary_color
     margin: 10px 0
 
 .info
-    font-size: 16px
+    font-size: 1.2em
     color: $grey_color
     margin-bottom: 5px
     span
-        font-size: 18px
         font-weight: bold
         color: $secondary_color
     a 
         text-decoration: none
         color: $grey_color
 
+div .mat-card
+    margin-bottom: 20px
+
 .container-buttons
     display: flex
     justify-content: space-around
     margin: 30px 0
 
-div .mat-card
-    margin-bottom: 10px
+.container-repos
+    @media (min-width: $tablet_size)
+        display: flex
+        justify-content: space-around
+        div
+            width: 40vw
+
