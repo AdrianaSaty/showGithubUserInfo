@@ -1,4 +1,4 @@
-export interface GithubUserInfo {
+export interface GithubUserInfoResponse {
     login: string,
     id: number,
     node_id: string,
@@ -21,14 +21,14 @@ export interface GithubUserInfo {
     company: string,
     blog: string,
     location: string,
-    email: string,
-    hireable: string,
+    email: string | null,
+    hireable: string | null,
     bio: string,
     twitter_username: string,
     public_repos: number,
     public_gists: number,
     followers: number,
     following: number,
-    created_at: Date,
-    updated_at: Date
+    created_at: string,
+    updated_at: string
 }

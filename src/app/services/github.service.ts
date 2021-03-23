@@ -2,7 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
-import { GithubUserInfo } from '../models/githubUserInfo';
+import { GithubUserInfoResponse } from '../models/api/githubUserInfoResponse';
+import { GithubUserReposResponse } from '../models/api/githubUserReposResponse';
+import { GithubUserRepoLanguageResponse } from '../models/api/githubUserRepoLanguageResponse';
+import { GithubUserReposStarredResponse } from '../models/api/githubUserReposStarredResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -17,24 +20,33 @@ export class GithubService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
 
-  getUserInfo(user: string): Observable<GithubUserInfo[]> {
-    return this.httpClient.get<GithubUserInfo[]>(`${this.url}/users/${user}`)
+  getUserInfo(user: string): Observable<GithubUserInfoResponse> {
+    return this.httpClient.get<GithubUserInfoResponse>(`${this.url}/users/${user}`)
       .pipe(
         retry(2),
         catchError(this.handleError)
       )
   }
 
-  getUserRepos(user: string): Observable<GithubUserInfo[]> {
-    return this.httpClient.get<GithubUserInfo[]>(`${this.url}/users/${user}/repos`)
+  getUserRepos(user: string): Observable<GithubUserReposResponse[]> {
+    return this.httpClient.get<GithubUserReposResponse[]>(`${this.url}/users/${user}/repos`)
       .pipe(
         retry(2),
         catchError(this.handleError)
       )
   }
 
-  getReposStarred(user: string): Observable<GithubUserInfo[]> {
-    return this.httpClient.get<GithubUserInfo[]>(`${this.url}/users/${user}/starred`)
+  getUserRepoLanguage(user: string, repo: string): Observable<GithubUserRepoLanguageResponse> {
+    return this.httpClient.get<GithubUserRepoLanguageResponse>(`${this.url}/repos/${user}/${repo}/languages`)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      )
+  }
+
+
+  getReposStarred(user: string): Observable<GithubUserReposStarredResponse[]> {
+    return this.httpClient.get<GithubUserReposStarredResponse[]>(`${this.url}/users/${user}/starred`)
       .pipe(
         retry(2),
         catchError(this.handleError)
