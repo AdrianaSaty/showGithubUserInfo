@@ -8,4 +8,7 @@ import { LoadingService } from './services/loading/loading.service';
 })
 export class AppComponent {
   constructor(public loadingService: LoadingService) {}
+  ngOnInit(): void {
+    this.loadingService.isLoading.next(false);
+  }
 }
