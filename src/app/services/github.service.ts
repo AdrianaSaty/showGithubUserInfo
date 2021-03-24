@@ -23,7 +23,7 @@ export class GithubService {
   getUserInfo(user: string): Observable<GithubUserInfoResponse> {
     return this.httpClient.get<GithubUserInfoResponse>(`${this.url}/users/${user}`)
       .pipe(
-        retry(2),
+        retry(1),
         catchError(this.handleError)
       )
   }
@@ -31,7 +31,6 @@ export class GithubService {
   getUserRepos(user: string): Observable<GithubUserReposResponse[]> {
     return this.httpClient.get<GithubUserReposResponse[]>(`${this.url}/users/${user}/repos`)
       .pipe(
-        retry(2),
         catchError(this.handleError)
       )
   }
@@ -39,7 +38,6 @@ export class GithubService {
   getUserRepoLanguage(user: string, repo: string): Observable<GithubUserRepoLanguageResponse> {
     return this.httpClient.get<GithubUserRepoLanguageResponse>(`${this.url}/repos/${user}/${repo}/languages`)
       .pipe(
-        retry(2),
         catchError(this.handleError)
       )
   }
@@ -48,20 +46,23 @@ export class GithubService {
   getReposStarred(user: string): Observable<GithubUserReposStarredResponse[]> {
     return this.httpClient.get<GithubUserReposStarredResponse[]>(`${this.url}/users/${user}/starred`)
       .pipe(
-        retry(2),
         catchError(this.handleError)
       )
   }
 
   handleError(error: HttpErrorResponse) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      errorMessage = error.error.message;
-    } else {
-      errorMessage = `Código do erro: ${error.status}, ` + `menssagem: ${error.message}`;
+    switch (error.status) {
+      case 0:
+        alert('Please, check your internet connection!')
+        break;
+      case 500:
+        alert("Sorry, we're having a problem communicating with our servers")
+        break;
+      default:
+        alert(error.error.message)
+        break;
     }
-    console.log(errorMessage);
-    return throwError(errorMessage);
+    return throwError(error);
   };
 
 

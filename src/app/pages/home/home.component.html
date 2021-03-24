@@ -8,6 +8,9 @@
                 <mat-icon (click)="onSubmit(f)" matSuffix>search</mat-icon>
             </mat-form-field>
         </form>
+        <div *ngIf="userNotFound">
+            <p class="info-title"><span>User not found! 🙁 </span></p>
+        </div>
         <div *ngIf="userInfo.login">
             <mat-card class="user-info-card">
                 <img src={{userInfo.avatar_url}}>
@@ -24,14 +27,15 @@
                     <p class="info"><span>Followers: </span>{{userInfo.followers}}</p>
                     <p class="info"><span>Following: </span>{{userInfo.following}}</p>
                     <p class="info"><span>Last update: </span>{{convertDateToLocaleString(userInfo.updated_at)}}</p>
+                    <br>
+                    <a href={{userInfo.html_url}} target="_blank">
+                        <button mat-raised-button color="primary">Go to the Repo!</button></a>
                 </div>
             </mat-card>
         </div>
-        <div class="container-buttons">
-            <button (click)="getUserRepos()" disabled={{!userInfo.login}} mat-raised-button
-                color="primary">{{userReposButtonText}}</button>
-            <button (click)="getUserReposStarred()" disabled={{!userInfo.login}} mat-raised-button
-                color="primary">{{userReposStarredText}}</button>
+        <div *ngIf="userInfo.login" class="container-buttons">
+            <button (click)="getUserRepos()" mat-raised-button color="primary">{{userReposButtonText}}</button>
+            <button (click)="getUserReposStarred()" mat-raised-button color="primary">{{userReposStarredText}}</button>
         </div>
         <div class="container-repos">
             <div>
@@ -41,17 +45,17 @@
                         <div *ngFor="let repo of repos, let i = index">
                             <mat-card>
                                 <p class="info"><span>Name: </span>{{repo.name}}</p>
-                                <p class="info" *ngIf="repo.description"><span>Description: </span>{{repo.description}}</p>
+                                <p class="info" *ngIf="repo.description"><span>Description: </span>{{repo.description}}
+                                </p>
                                 <p class="info" *ngIf="repo.language"><span>Language: </span>{{repo.language}}</p>
-                                <p class="info"><span>Created at: </span>{{convertDateToLocaleString(repo.created_at)}}</p>
-                                <p class="info"><span>Pushed at: </span>{{convertDateToLocaleString(repo.pushed_at)}}</p>
+                                <p class="info"><span>Created at: </span>{{convertDateToLocaleString(repo.created_at)}}
+                                </p>
+                                <p class="info"><span>Pushed at: </span>{{convertDateToLocaleString(repo.pushed_at)}}
+                                </p>
                                 <br>
-                                <app-chart *ngIf="showChartData[i]"
-                                    [language1]="chartData[i].language1"
-                                    [language2]="chartData[i].language2"
-                                    [language3]="chartData[i].language3"
-                                    [percentage1]="chartData[i].percentage1"
-                                    [percentage2]="chartData[i].percentage2"
+                                <app-chart *ngIf="showChartData[i]" [language1]="chartData[i].language1"
+                                    [language2]="chartData[i].language2" [language3]="chartData[i].language3"
+                                    [percentage1]="chartData[i].percentage1" [percentage2]="chartData[i].percentage2"
                                     [percentage3]="chartData[i].percentage3">
                                 </app-chart>
                             </mat-card>

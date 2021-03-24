@@ -30,6 +30,7 @@ export class HomeComponent implements OnInit {
   public calledGetUserReposStarred: boolean = false;
   public chartData: ChartData[] = []
   public showChartData: boolean[] = []
+  public userNotFound: boolean = false;
 
   constructor(
     public router: Router,
@@ -56,6 +57,10 @@ export class HomeComponent implements OnInit {
     if (user) {
       this.githubService.getUserInfo(user).subscribe((user: GithubUserInfoResponse) => {
         this.userInfo = user;
+      }, error => {
+        if (error.status == 404) {
+          this.userNotFound = true;
+        }
       });
     }
   }
@@ -63,12 +68,16 @@ export class HomeComponent implements OnInit {
   public getUserRepos() {
     if (!this.calledGetUserRepos) {
       this.githubService.getUserRepos(this.githubUser).pipe(
-        switchMap(repos => {
-          repos.forEach((element: GithubUserReposResponse, index: number) => {
-            this.getUserReposLanguages(element.name, index);
-          });
-          return this.repos = repos;
-        })
+        switchMap(
+          repos => {
+            repos.forEach((element: GithubUserReposResponse, index: number) => {
+              this.getUserReposLanguages(element.name, index);
+            })
+            return this.repos = repos;
+          }, error => {
+            this.userNotFound = true;
+          }
+        ),
       ).subscribe()
     }
     this.calledGetUserRepos = true;
