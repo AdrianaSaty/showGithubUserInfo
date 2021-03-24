@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './componentes/home/home.component';
@@ -13,13 +12,16 @@ import { HeaderComponent } from './componentes/header/header.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { ChartComponent } from './componentes/chart/chart.component';
+import { LoadingSpinnerComponent } from './componentes/loading-spinner/loading-spinner.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     GithubSvgComponent,
     HeaderComponent,
-    ChartComponent
+    ChartComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     AppRoutingModule,
@@ -30,6 +32,7 @@ import { ChartComponent } from './componentes/chart/chart.component';
     HttpClientModule,
     MatButtonModule,
     MatCardModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
