@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoadingService } from './services/loading/loading.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent {
-  title = 'showGithubUserInfo';
+  constructor(public loadingService: LoadingService) {}
 }
