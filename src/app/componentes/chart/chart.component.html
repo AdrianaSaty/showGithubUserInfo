@@ -12,14 +12,14 @@
             <span>{{percentage1}}</span>
           </a>
         </li>
-        <li>
+        <li *ngIf="percentage2">
           <a class="description-chart">
             <svg class="description-chart-label" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8z"></path></svg>
             <span class="description-chart-language">{{language2}}</span>
             <span>{{percentage2}}</span>
           </a>
         </li>
-        <li>
+        <li *ngIf="percentage3">
           <a class="description-chart">
             <svg class="description-chart-label" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8z"></path></svg>
             <span class="description-chart-language">{{language3}}</span>

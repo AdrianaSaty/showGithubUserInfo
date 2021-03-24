@@ -80,21 +80,24 @@ export class HomeComponent implements OnInit {
     this.githubService.getUserRepoLanguage(this.githubUser, repo).subscribe((languages: GithubUserRepoLanguageResponse) => {
       if (Object.keys(languages).length !== 0) {
         this.reposLanguage.push(languages);
-        this.showChartData.push(true);
-        let totalNumberOfBytesCode: number = this.reposLanguage[index][Object.keys(this.reposLanguage[index])[0]] + this.reposLanguage[index][Object.keys(this.reposLanguage[index])[1]] + this.reposLanguage[index][Object.keys(this.reposLanguage[index])[2]];
         let bytesCodeLanguage1: number = this.reposLanguage[index][Object.keys(this.reposLanguage[index])[0]];
         let bytesCodeLanguage2: number = this.reposLanguage[index][Object.keys(this.reposLanguage[index])[1]];
         let bytesCodeLanguage3: number = this.reposLanguage[index][Object.keys(this.reposLanguage[index])[2]];
+        let totalNumberOfBytesCode: number =
+          [bytesCodeLanguage1, bytesCodeLanguage2, bytesCodeLanguage3].reduce((acc, val) => {
+            return acc + (val || 0);
+          }, 0);
         this.chartData.push(
           {
             language1: Object.keys(this.reposLanguage[index])[0],
             language2: Object.keys(this.reposLanguage[index])[1],
             language3: Object.keys(this.reposLanguage[index])[2],
-            percentage1: `${convertNumberToPercentage(bytesCodeLanguage1 / totalNumberOfBytesCode)}%`,
-            percentage2: `${convertNumberToPercentage(bytesCodeLanguage2 / totalNumberOfBytesCode)}%`,
-            percentage3: `${convertNumberToPercentage(bytesCodeLanguage3 / totalNumberOfBytesCode)}%`,
+            percentage1: bytesCodeLanguage1 ? `${convertNumberToPercentage(bytesCodeLanguage1 / totalNumberOfBytesCode)}%` : '',
+            percentage2: bytesCodeLanguage2 ? `${convertNumberToPercentage(bytesCodeLanguage2 / totalNumberOfBytesCode)}%` : '',
+            percentage3: bytesCodeLanguage3 ? `${convertNumberToPercentage(bytesCodeLanguage3 / totalNumberOfBytesCode)}%` : '',
           }
         )
+        this.showChartData.push(true);
       } else {
         this.showChartData.push(false);
       }
