@@ -57,6 +57,7 @@ export class HomeComponent implements OnInit {
     if (user) {
       this.githubService.getUserInfo(user).subscribe((user: GithubUserInfoResponse) => {
         this.userInfo = user;
+        this.userNotFound = false;
       }, error => {
         if (error.status == 404) {
           this.userNotFound = true;
@@ -74,8 +75,6 @@ export class HomeComponent implements OnInit {
               this.getUserReposLanguages(element.name, index);
             })
             return this.repos = repos;
-          }, error => {
-            this.userNotFound = true;
           }
         ),
       ).subscribe()

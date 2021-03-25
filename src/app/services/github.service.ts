@@ -58,9 +58,9 @@ export class GithubService {
       case 500:
         alert("Sorry, we're having a problem communicating with our servers")
         break;
-      default:
+      case 403:
         alert(error.error.message)
-        break;
+        break
     }
     return throwError(error);
   };
